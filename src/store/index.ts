@@ -1,11 +1,20 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { persist } from 'config/vuexPlugins'
 
-Vue.use(Vuex);
+import { getModule } from 'vuex-module-decorators'
 
-export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
-});
+import Session from 'store/modules/session'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  modules: {
+    Session,
+  },
+  plugins: [persist.plugin],
+})
+
+export default store
+
+export const session = getModule(Session, store)

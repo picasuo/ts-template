@@ -9,23 +9,31 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "jest"
-    ],
+    "types": ["webpack-env", "jest"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "assets/*": ["src/assets/*"],
+      "components/*": ["src/components/*"],
+      "config/*": ["src/config/*"],
+      "router/*": ["src/router/*"],
+      "service/*": ["src/service/*"],
+      "store/*": ["src/store/*"],
+      "views/*": ["src/views/*"],
+      "utils/*": ["src/utils/*"],
+      "ts/*": ["src/ts/*"],
+      "scss/*": ["src/assets/scss/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    // 用于添加类型注解到项目中 如下会将 dom 的定义加入到项目中方便使用
+    // 如果没有设置 lib 则根据 target 自动导入对应的 lib
+    // 如果使用了一些较新的库 (注意这里仅是在 ts 中使用了这些类型定义 (方便开发) 对于老旧的js引擎 还是需要使用 polyfill 进行降级
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
     "src/**/*.ts",
@@ -34,7 +42,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
