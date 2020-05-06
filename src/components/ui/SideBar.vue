@@ -21,7 +21,7 @@
           v-if="item.children"
           :key="item.name"
           :ref="item.url || item.children[0].url"
-          :name="item.url || ''"
+          :name="item.url || item.children[0].url"
         >
           <template slot="title">
             <sx-icon
