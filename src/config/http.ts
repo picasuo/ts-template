@@ -58,10 +58,10 @@ export default {
     return axiosInstance.get<T>(url, { params, ...baseConfig, ...config })
   },
   post<T>(url, data?, config?: AxiosRequestConfig) {
-    return axiosInstance.post<T>(url, { data, ...baseConfig, ...config })
+    return axiosInstance.post<T>(url, data, { ...baseConfig, ...config })
   },
   put<T>(url, data?, config?: AxiosRequestConfig) {
-    return axiosInstance.put<T>(url, { data, ...baseConfig, ...config })
+    return axiosInstance.put<T>(url, data, { ...baseConfig, ...config })
   },
   delete<T>(url, data?, config?: AxiosRequestConfig) {
     return axiosInstance.delete<T>(url, { data, ...baseConfig, ...config })

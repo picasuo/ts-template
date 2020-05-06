@@ -16,12 +16,12 @@
       accordion
       @on-select="onSelect"
     >
-      <template v-for="item in sides">
+      <template v-for="item in sideList">
         <i-sub-menu
           v-if="item.children"
           :key="item.name"
-          :ref="item.url"
-          :name="item.url"
+          :ref="item.url || item.children[0].url"
+          :name="item.url || ''"
         >
           <template slot="title">
             <sx-icon
@@ -34,7 +34,7 @@
           <i-menu-item
             v-for="sub in item.children"
             :key="sub.name"
-            :name="item.url + sub.url"
+            :name="item.url || '' + sub.url"
           >
             <sx-icon
               :type="sub.icon"
@@ -77,6 +77,7 @@ export default class SideBar extends Vue {
 
   isFold = false
   acitveName = ''
+  subMap
 
   get classes() {
     return {
@@ -85,18 +86,33 @@ export default class SideBar extends Vue {
     }
   }
 
+  get sideList() {
+    return this.sides.filter(
+      v => v.url || (Array.isArray(v.children) && v.children.length > 0),
+    )
+  }
+
   @Watch('$route')
-  routeWatcher(route) {
-    const arr = route.path.split('/')
-    this.acitveName = this.$route.path
-    if (arr.length === 3) this.$refs[arr.slice(0, 2).join('/')][0].opened = true
+  routeWatcher({ path }) {
+    this.selectUrl(path)
   }
 
   mounted() {
-    const arr = this.$route.path.split('/')
-    this.acitveName = this.$route.path
-    // 由于 iview submenu 无法根据  open-names 打开对应 submune 直接获取 submenu 修改其 opened
-    if (arr.length === 3) this.$refs[arr.slice(0, 2).join('/')][0].opened = true
+    const {
+      $route: { path },
+      sideList,
+    } = this
+    this.subMap = sideList.reduce((p, v) => {
+      if (Array.isArray(v.children) && v.children.length > 0)
+        p[v.url || v.children[0].url] = true
+      return p
+    }, {})
+    this.selectUrl(path)
+  }
+
+  selectUrl(path) {
+    this.acitveName = path
+    if (this.subMap[path]) this.$refs[path][0].opened = true
   }
 
   onSelect(v) {
@@ -112,21 +128,6 @@ export default class SideBar extends Vue {
   background-color: $sidebar-bg;
   transition: width 0.3s ease-in-out;
   user-select: none;
-  & /deep/ .ivu-menu-submenu-title-icon {
-    display: none;
-  }
-  &-fold {
-    width: 64px;
-    .sidebar-toggle .sui-icon {
-      transform: rotateZ(90deg);
-    }
-    span {
-      display: none;
-    }
-    .ivu-menu-item {
-      padding-left: 24px !important;
-    }
-  }
   &-toggle {
     width: 100%;
     height: 34px;
@@ -144,7 +145,7 @@ export default class SideBar extends Vue {
       }
     }
   }
-  .ivu-menu {
+  & /deep/ .ivu-menu {
     background-color: $sidebar-bg !important;
     &-item {
       width: 100%;
@@ -159,12 +160,15 @@ export default class SideBar extends Vue {
     }
     &-submenu {
       &-title {
-        @include text($nm-font-weight, $sm-size);
+        @include text($nm-font-weight, $sm-size, rgba(255, 255, 255, 0.7));
         width: 100%;
         height: 57px;
         display: inline-flex;
         align-items: center;
         background-color: $sidebar-bg !important;
+        &-icon {
+          display: none;
+        }
         .submenu-icon {
           width: 12px;
           height: 12px;
@@ -200,8 +204,7 @@ export default class SideBar extends Vue {
       }
     }
   }
-
-  .ivu-menu-dark.ivu-menu-vertical {
+  & /deep/ .ivu-menu-dark.ivu-menu-vertical {
     .ivu-menu-item-selected,
     .ivu-menu-item-selected:hover {
       color: $primary-color;

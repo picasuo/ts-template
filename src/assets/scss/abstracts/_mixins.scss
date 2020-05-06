@@ -15,7 +15,7 @@
 @mixin text(
   $font-weight,
   $font-size,
-  $color: normal,
+  $color: inherit,
   $line-height: normal,
   $font-family: $regular-font-family
 ) {
