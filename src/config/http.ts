@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { HTTP_URL, IMAGE_URL } from 'config/config'
+import { RequestResult } from 'ts/type'
 import { session } from 'store/index'
 
 const axiosInstance = axios.create({
@@ -9,7 +10,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   config => {
     config.headers['Content-Type'] = 'application/json; charset=UTF-8'
-    config.headers['Authorization'] = 'Bearer' + session.token
+    config.headers['Authorization'] = `Bearer ${session.token}`
     // 删除headers中key值为空(falsy)的header
     for (const prop in config.headers) {
       if (!config.headers[prop]) {
@@ -20,12 +21,12 @@ axiosInstance.interceptors.request.use(
   },
   error => {
     return Promise.reject(error)
-  },
+  }
 )
 
 axiosInstance.interceptors.response.use(
   response => response.data,
-  error => checkStatus(error),
+  error => checkStatus(error)
 )
 
 function checkStatus({ response }) {
@@ -53,18 +54,38 @@ const baseConfig: AxiosRequestConfig = {
   timeout: 10000,
 }
 
+/**
+ * 由于 axios 拦截器直接对 Resp 进行解析操作, 直接返回结果数据格式
+ * 因此请求接口返回类型不再是 Promise<AxiosResponse<T>>
+ * 而是自定义的 Promise<RequestResult<T>>
+ * 目前只能强制类型转化
+ */
 export default {
-  get<T>(url, params?, config?: AxiosRequestConfig) {
-    return axiosInstance.get<T>(url, { params, ...baseConfig, ...config })
+  get<T, V = null>(url, params?, config?: AxiosRequestConfig) {
+    return (axiosInstance.get<T>(url, {
+      params,
+      ...baseConfig,
+      ...config,
+    }) as any) as Promise<RequestResult<T, V>>
   },
-  post<T>(url, data?, config?: AxiosRequestConfig) {
-    return axiosInstance.post<T>(url, data, { ...baseConfig, ...config })
+  post<T, V = null>(url, data?, config?: AxiosRequestConfig) {
+    return (axiosInstance.post<T>(url, data, {
+      ...baseConfig,
+      ...config,
+    }) as any) as Promise<RequestResult<T, V>>
   },
-  put<T>(url, data?, config?: AxiosRequestConfig) {
-    return axiosInstance.put<T>(url, data, { ...baseConfig, ...config })
+  put<T, V = null>(url, data?, config?: AxiosRequestConfig) {
+    return (axiosInstance.put<T>(url, data, {
+      ...baseConfig,
+      ...config,
+    }) as any) as Promise<RequestResult<T, V>>
   },
-  delete<T>(url, data?, config?: AxiosRequestConfig) {
-    return axiosInstance.delete<T>(url, { data, ...baseConfig, ...config })
+  delete<T, V = null>(url, data?, config?: AxiosRequestConfig) {
+    return (axiosInstance.delete<T>(url, {
+      data,
+      ...baseConfig,
+      ...config,
+    }) as any) as Promise<RequestResult<T, V>>
   },
 }
 
@@ -74,7 +95,7 @@ export default {
  * @param size 图片大小
  * @param noCache 是否取消缓存
  */
-export const getImgSrc = (val: string, size: string, noCache = false): string =>
-  `${IMAGE_URL}/image/${val}?size=${size}` + noCache
-    ? `&timeStamp=${Date.now()}`
-    : ''
+export const getImgSrc = (val: string, size = '', noCache = false): string =>
+  `${IMAGE_URL}/image/${val}` +
+  (size ? `?size=${size}` : '') +
+  (noCache ? `${size ? '&' : '?'}timeStamp=${Date.now()}` : '')

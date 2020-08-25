@@ -43,6 +43,7 @@ module.exports = {
         config: resolve('src/config'),
         router: resolve('src/router'),
         service: resolve('src/service'),
+        layouts: resolve('src/layouts'),
         store: resolve('src/store'),
         views: resolve('src/views'),
         utils: resolve('src/utils'),

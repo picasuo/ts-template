@@ -25,6 +25,7 @@
       "router/*": ["src/router/*"],
       "service/*": ["src/service/*"],
       "store/*": ["src/store/*"],
+      "layouts/*": ["src/layouts/*"],
       "views/*": ["src/views/*"],
       "utils/*": ["src/utils/*"],
       "ts/*": ["src/ts/*"],

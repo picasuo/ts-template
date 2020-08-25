@@ -36,7 +36,7 @@ export default class Login extends Vue {}
     height: calc(100vh - 2 * 4vw);
     width: calc(100vw - 2 * 4vw);
     position: relative;
-    box-shadow: 0 0 2rem rgba($black, 0.3);
+    box-shadow: 0 0 2rem rgba($color-black, 0.3);
   }
   .logo {
     position: absolute;
@@ -53,7 +53,7 @@ export default class Login extends Vue {}
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: $white;
+    background-color: $color-white;
     border-radius: 3px;
     padding: 1rem 0;
     width: get-vw(560px);
@@ -74,14 +74,14 @@ export default class Login extends Vue {}
         outline: none;
         border: none;
         margin: 0 get-vw(5px) 0 get-vw(15px);
-        @include text($nm-font-weight, get-vw(20px), $color-grey-light-2);
+        @include text(normal, get-vw(20px), $text-color-grey);
       }
     }
   }
   &-title {
     padding-bottom: 14px;
     border-bottom: 5px solid #3781dc;
-    @include text($nm-font-weight, 3rem, $color-grey-light-2);
+    @include text(normal, 3rem, $text-color-grey);
   }
   .button-login {
     width: 100%;

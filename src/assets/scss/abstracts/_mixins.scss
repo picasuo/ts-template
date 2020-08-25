@@ -4,11 +4,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-@mixin flex($dir: row, $content: center, $items: center, $wrap: wrap) {
-  display: flex;
+
+@mixin flex($flex: flex, $dir: row, $x: center, $y: center, $wrap: wrap) {
+  display: $flex;
   flex-direction: $dir;
-  justify-content: $content;
-  align-items: $items;
+  justify-content: $x;
+  align-items: $y;
   flex-wrap: $wrap;
 }
 

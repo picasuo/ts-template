@@ -1,13 +1,7 @@
 %text-small {
-  @include text($nm-font-weight, $sml-size, $default-font-color);
+  @include text(normal, $sml-size, $text-color);
 }
 
 %text-medium {
-  @include text(
-    $nm-font-weight,
-    $sml-size,
-    $default-font-color,
-    normal,
-    $medium-font-family
-  );
+  @include text(normal, $sml-size, $text-color, normal, $medium-font-family);
 }

@@ -1,3 +1,4 @@
+/* vuex 插件配置 */
 import VuexPersist from 'vuex-persist'
 
 const persist = new VuexPersist({

@@ -4,3 +4,9 @@ declare global {
   const _: LoDashStatic
   const moment: typeof import('moment')
 }
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $bus: Vue
+  }
+}

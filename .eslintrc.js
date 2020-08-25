@@ -30,7 +30,7 @@ module.exports = {
     'block-spacing': 2,
     'key-spacing': 2,
     'brace-style': 2,
-    'comma-dangle': [2, 'always-multiline'],
+    'comma-dangle': 0, // 禁用:和 prettier 冲突
     'object-curly-spacing': [2, 'always'],
     'prefer-const': [
       'error',

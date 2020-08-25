@@ -1,48 +1,54 @@
 /****** COLOR ******/
-$primary-color: #4883fb;
-$info-color: #2db7f5;
-$success-color: #2ad1b0;
-$warning-color: #f49857;
-$error-color: #f94545;
-$normal-color: #e6ebf1;
-$cancel-color: #c9c9c9;
-$disabled-color: #d9d9d9;
+$color-white: #fff;
+$color-black: #000;
+$color-red: #fc1d5c;
+$color-orange: #fa722e;
+$color-blue: #2388f0;
+$color-purple: #5c43f8;
+$color-green: #45dda2;
+$color-pink: #fabfd0;
+$color-gold: #ebbb8f;
 
-$white: #fff;
-$black: #000;
-$gray: #999;
+$color-red-light: #ef3c6f;
 
-$color-grey-light-1: #ececec;
-$color-grey-light-2: #7d7d7d;
-$color-grey-light-3: #ccd3e4;
-$color-grey-light-4: #dddddd;
-$color-grey-light-5: #c1c1c1;
-$color-grey-light-6: #d9d9d9;
-$color-grey-light-7: #9c9c9c;
-$color-grey-dark-1: #444444;
-$color-grey-dark-2: #4a4a4a;
-$color-blue-light-1: #246eca;
-$color-blue-light-2: #5ca0ff;
+/* 行为相关颜色 */
+$color-primary: #4883fb;
+$color-info: #2db7f5;
+$color-success: #2ad1b0;
+$color-warning: #f49857;
+$color-error: #f94545;
+$color-normal: #e6ebf1;
+$color-cancel: #c9c9c9;
+$color-disabled: #d9d9d9;
 
-$background-color: #f0f4fa;
+/* 文字基本颜色 */
+$text-color: #4a4a4a; //基本色
+$text-color-inverse: #fff; //反色
+$text-color-grey: #7d7d7d; //辅助灰色，如加载更多的提示信息
+$text-color-light: #9c9c9c; //辅助灰色，如加载更多的提示信息
+$lighter-border-color: #e9edf3;
 
+/* 背景颜色 */
+$bg-color: #ffffff;
+$bg-color-grey: #ececec;
+$bg-color-hover: #f1f1f1; //点击状态颜色
+$bg-color-mask: rgba(0, 0, 0, 0.4); //遮罩颜色
+
+/* 边框颜色 */
+$border-color: #c7c7c7;
+$line-color: #d9d9d9;
+
+/* 超链接颜色 */
 $link-color: rgb(70, 147, 230);
 $link-hover-color: rgb(43, 133, 228);
 $link-active-color: rgb(0, 123, 255);
 
-$default-font-color: #4a4a4a;
-$light-font-color: #7d7d7d;
-
-$lighter-border-color: #c7c7c7;
+/* 图片背景色 */
+$img-color: #e6e6e6;
 
 /****** FONT ******/
 $regular-font-family: '.PingFangSC-Regular';
 $medium-font-family: '.PingFangSC-Medium';
-
-$lt-font-weight: lighter;
-$nm-font-weight: normal;
-$bd-font-weight: bold;
-$bdr-font-weight: bolder;
 
 $sml-size: 12px;
 $sm-size: 14px;
