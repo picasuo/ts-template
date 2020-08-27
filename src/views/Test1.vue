@@ -1,5 +1,9 @@
 <template>
-  <div>Test1</div>
+  <div>
+    parent
+    <!-- 嵌套路由  -->
+    <router-view />
+  </div>
 </template>
 
 <script lang="ts">

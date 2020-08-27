@@ -9,6 +9,8 @@ const Login = () => import(/* webpackChunkName: "login" */ 'layouts/Login.vue')
 const Test = () => import(/* webpackChunkName: "test" */ 'views/Test.vue')
 const Test1 = () => import(/* webpackChunkName: "test" */ 'views/Test1.vue')
 const Test2 = () => import(/* webpackChunkName: "test" */ 'views/Test2.vue')
+const a = () => import(/* webpackChunkName: "test" */ 'views/a.vue')
+const b = () => import(/* webpackChunkName: "test" */ 'views/b.vue')
 
 export const IndexRoutes = [
   /* 无 tab 菜单项 用做默认菜单 */
@@ -19,6 +21,11 @@ export const IndexRoutes = [
         url: 'i-t',
         component: Test,
         icon: 'icon-vip',
+        /* 存在子页面操作 (通过设置嵌套路由实现) */
+        // children: [
+        //   { path: '', component: a }, // 嵌套路由默认显示组件
+        //   { path: ':id', component: b },
+        // ],
       },
       {
         name: 'i-t2',
@@ -34,6 +41,10 @@ export const IndexRoutes = [
             url: 'i-g-t1',
             component: Test1,
             icon: 'icon-vip',
+            // children: [
+            //   { path: '', component: a },
+            //   { path: ':id', component: b },
+            // ],
           },
           {
             name: 'i-g-t2',
@@ -83,6 +94,11 @@ export const IndexRoutes = [
             url: 'o-g-t1',
             component: Test1,
             icon: 'icon-vip',
+            /* 存在子页面操作 (通过设置嵌套路由实现) */
+            children: [
+              { path: '', component: a },
+              { path: ':id', component: b },
+            ],
           },
           {
             name: '0-g-t2',

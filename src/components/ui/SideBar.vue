@@ -72,6 +72,8 @@ import Velocity from 'velocity-animate/velocity.min'
 
 import { Menu, Submenu, MenuItem } from 'iview'
 
+import { TAB_REG } from 'config/const'
+
 @Component({
   components: {
     IMenu: Menu,
@@ -90,7 +92,8 @@ export default class SideBar extends Vue {
   toggle!: any
   isFold = false
   activeName = ''
-  subMap
+  selectedTab = ''
+  subMap = {}
 
   get classes() {
     return {
@@ -99,10 +102,18 @@ export default class SideBar extends Vue {
     }
   }
 
-  get selectedTab() {
-    const sp = this.$route.path.split('/')
-    return sp.length > 2 ? `/${sp[1]}` : '/'
+  get tabMap() {
+    const t = {}
+    this.sides.forEach(({ url }) => {
+      if (!t[url]) t[url] = url
+    })
+    return t
   }
+
+  // get selectedTab() {
+  //   const res = TAB_REG.exec(this.$route.path)
+  //   return res && this.tabMap[`/${res[1]}`] ? `/${res[1]}` : '/'
+  // }
 
   @Watch('$route')
   routeWatcher({ path }) {
@@ -130,13 +141,15 @@ export default class SideBar extends Vue {
   }
 
   selectUrl(path) {
-    this.activeName = path
-    let ref = this.$refs[this.subMap[path]]
-    if (!ref) {
-      const t = path.split('/')
-      if (t.length > 2) ref = this.$refs[this.subMap[`/${t[2]}`]] as any
+    const match = path.match(TAB_REG)
+    if (match) {
+      const tabMatch = this.tabMap[`/${match[0]}`]
+      this.selectedTab = tabMatch || '/'
+      path = tabMatch ? `/${match[0]}/${match[1]}` : `/${match[0]}`
+      this.activeName = path
+      const ref = this.$refs[this.subMap[`/${match[tabMatch ? 1 : 0]}`]]
+      if (ref) ref[0].opened = true
     }
-    if (ref) ref[0].opened = true
   }
 
   onSelect(v) {

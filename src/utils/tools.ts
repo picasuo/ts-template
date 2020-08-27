@@ -5,7 +5,9 @@ export const routeBuilder = menu =>
       ({ sides, url }) =>
         sides &&
         sides.flatMap(item =>
-          Array.isArray(item.children)
+          Array.isArray(item.children) &&
+          // eslint-disable-next-line no-prototype-builtins
+          !item.children[0].hasOwnProperty('path')
             ? item.children.map(c => ({
                 ...shallowCopy(c, ['icon', 'url']),
                 name: _.upperFirst(c.url),
@@ -30,7 +32,9 @@ export const sideBuilder = menu => {
       ({ sides, url = '' }) =>
         sides &&
         sides.map(item =>
-          Array.isArray(item.children)
+          Array.isArray(item.children) &&
+          // eslint-disable-next-line no-prototype-builtins
+          !item.children[0].hasOwnProperty('path')
             ? {
                 name: item.name,
                 url: `/${url}`,
